@@ -1,6 +1,6 @@
 {
   "name": "mj-apify-actor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "description": "This is an example of an Apify actor.",
   "engines": {
