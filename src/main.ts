@@ -35,7 +35,7 @@ const crawler = new PlaywrightCrawler({
   },
   // 오류 처리기
   failedRequestHandler({ request, error }) {
-    console.log(`Request ${request.url} failed: ${error?.message}`)
+    console.log(`Request ${request.url} failed: ${(error as Error)?.message}`)
   },
 })
 
