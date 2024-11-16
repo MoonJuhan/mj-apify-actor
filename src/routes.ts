@@ -3,9 +3,11 @@ import { Dataset, createPlaywrightRouter } from 'crawlee'
 export const router = createPlaywrightRouter()
 
 router.addDefaultHandler(async ({ enqueueLinks, log }) => {
-  log.info(`enqueueing new URLs`)
+  const targetUrl = process.env.APIFY_TARGET_URL
+  log.info(`enqueueing new URLs: ${targetUrl}`)
+
   await enqueueLinks({
-    globs: ['https://apify.com/*'],
+    globs: [targetUrl as string],
     label: 'detail',
   })
 })
