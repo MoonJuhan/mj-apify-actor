@@ -1,6 +1,6 @@
 {
-  "name": "crawlee-playwright-typescript",
-  "version": "0.0.1",
+  "name": "mj-apify-actor",
+  "version": "0.0.2",
   "type": "module",
   "description": "This is an example of an Apify actor.",
   "engines": {
