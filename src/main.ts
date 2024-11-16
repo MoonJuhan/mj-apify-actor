@@ -21,8 +21,11 @@ const crawler = new PlaywrightCrawler({
   proxyConfiguration,
   maxRequestsPerCrawl,
   async requestHandler({ page, request, log }) {
-    log.info(`Crawling ${request.url}`)
+    log.info(process.env.TARGET_URL as string)
+    log.info(process.env.APIFY_TARGET_URL as string)
+    log.info(process.env.APIFY_APIFY_TARGET_URL as string)
 
+    log.info(`Crawling ${request.url}`)
     const title = await page.title()
     const html = await page.content()
     log.info(`${title}`, { url: request.loadedUrl })
