@@ -11,15 +11,11 @@ await Actor.init()
 
 const targetUrl = process.env.APIFY_TARGET_URL
 
-// Structure of input is defined in input_schema.json
-const { startUrls = [targetUrl as string], maxRequestsPerCrawl = 100 } =
-  (await Actor.getInput<Input>()) ?? ({} as Input)
-
 const proxyConfiguration = await Actor.createProxyConfiguration()
 
 const crawler = new PlaywrightCrawler({
   proxyConfiguration,
-  maxRequestsPerCrawl,
+  maxRequestsPerCrawl: 100,
   async requestHandler({ page, request, log }) {
     log.info(`Crawling ${request.url}`)
     const title = await page.title()
@@ -38,10 +34,8 @@ const crawler = new PlaywrightCrawler({
   },
 })
 
-console.log(process.env.APIFY_TARGET_URL)
-console.log(targetUrl)
-console.log(startUrls)
-await crawler.run(startUrls)
+console.log(targetUrl as string)
+await crawler.run([targetUrl as string])
 
 // Exit successfully
 await Actor.exit()
