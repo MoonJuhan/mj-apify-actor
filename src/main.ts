@@ -1,17 +1,11 @@
 import { Actor } from 'apify'
 import { Dataset, PlaywrightCrawler } from 'crawlee'
 
-interface Input {
-  startUrls: string[]
-  maxRequestsPerCrawl: number
-}
-
-// Initialize the Apify SDK
 await Actor.init()
+const proxyConfiguration = await Actor.createProxyConfiguration()
 
 const targetUrl = process.env.APIFY_TARGET_URL
-
-const proxyConfiguration = await Actor.createProxyConfiguration()
+const targetUrls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((id) => `${targetUrl}?category_id=${id}` as string)
 
 const crawler = new PlaywrightCrawler({
   proxyConfiguration,
@@ -20,7 +14,6 @@ const crawler = new PlaywrightCrawler({
     log.info(`Crawling ${request.url}`)
     const title = await page.title()
     const html = await page.content()
-    log.info(`${title}`, { url: request.loadedUrl })
 
     await Dataset.pushData({
       url: request.loadedUrl,
@@ -28,14 +21,10 @@ const crawler = new PlaywrightCrawler({
       html,
     })
   },
-  // 오류 처리기
   failedRequestHandler({ request, error }) {
     console.log(`Request ${request.url} failed: ${(error as Error)?.message}`)
   },
 })
 
-console.log(targetUrl as string)
-await crawler.run([targetUrl as string])
-
-// Exit successfully
+await crawler.run(targetUrls)
 await Actor.exit()
