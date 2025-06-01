@@ -34,15 +34,10 @@ COPY --chown=myuser package*.json ./
 # Install NPM packages, skip optional and development dependencies to
 # keep the image small. Avoid logging too much and print the dependency
 # tree for debugging
-RUN npm --quiet set progress=false \
-    && npm install --omit=dev --omit=optional \
-    && echo "Installed NPM packages:" \
-    && (npm list --omit=dev --all || true) \
-    && echo "Node.js version:" \
-    && node --version \
-    && echo "NPM version:" \
-    && npm --version \
-    && rm -r ~/.npm
+RUN npm install --omit=optional \
+&& npx playwright install --with-deps \
+&& echo "✅ Playwright 및 브라우저 바이너리 설치 완료" \
+&& npm ls playwright
 
 # Copy built JS files from builder image
 COPY --from=builder --chown=myuser /home/myuser/dist ./dist
@@ -55,4 +50,4 @@ COPY --chown=myuser . ./
 
 # Run the image. If you know you won't need headful browsers,
 # you can remove the XVFB start script for a micro perf gain.
-CMD ./start_xvfb_and_run_cmd.sh && npm run start:prod --silent
+CMD ["sh", "-c", "./start_xvfb_and_run_cmd.sh && npm run start:prod --silent"]
