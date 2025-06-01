@@ -7,7 +7,8 @@ await Actor.init();
 
 const targetUrl = process.env.APIFY_TARGET_URL;
 // const targetUrls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((id) => `${targetUrl}?category_id=${id}` as string);
-const targetUrls = [1, 2].map((id) => `${targetUrl}?category_id=${id}` as string);
+
+const getTargetUrl = (id: number) => `${targetUrl}?category_id=${id}` as string;
 
 const proxyConfiguration = await Actor.createProxyConfiguration();
 
@@ -27,6 +28,7 @@ const crawler = new PlaywrightCrawler({
     },
 });
 
-await crawler.run(targetUrls);
+await crawler.run([getTargetUrl(1)]);
+await crawler.run([getTargetUrl(2)]);
 
 await Actor.exit();
