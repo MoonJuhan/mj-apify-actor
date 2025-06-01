@@ -2,8 +2,7 @@
 
 This template is a production ready boilerplate for developing an [Actor](https://apify.com/actors) with `PlaywrightCrawler`. Use this to bootstrap your projects using the most up-to-date code.
 
-> We decided to split Apify SDK into two libraries, Crawlee and Apify SDK v3. Crawlee will retain all the crawling and scraping-related tools and will always strive to be the best [web scraping](https://apify.com/web-scraping) library for its community. At the same time, Apify SDK will continue to exist, but keep only the Apify-specific features related to building actors on the Apify platform. Read the upgrading guide to learn about the changes.
-> 
+> We decided to split Apify SDK into two libraries, Crawlee and Apify SDK v3. Crawlee will retain all the crawling and scraping-related tools and will always strive to be the best [web scraping](https://apify.com/web-scraping) library for its community. At the same time, Apify SDK will continue to exist, but keep only the Apify-specific features related to building Actors on the Apify platform. Read the upgrading guide to learn about the changes.
 
 ## Resources
 
@@ -47,6 +46,7 @@ If you would like to develop locally, you can pull the existing Actor from Apify
     ```
 
 2. Pull the Actor by its unique `<ActorId>`, which is one of the following:
+
     - unique name of the Actor to pull (e.g. "apify/hello-world")
     - or ID of the Actor to pull (e.g. "E2jjCZBezvAZnX8Rb")
 
