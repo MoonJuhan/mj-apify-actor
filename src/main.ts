@@ -5,10 +5,7 @@ import { router } from './routes.js';
 
 await Actor.init();
 
-const targetUrl = process.env.APIFY_TARGET_URL;
-// const targetUrls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((id) => `${targetUrl}?category_id=${id}` as string);
-
-const getTargetUrl = (id: number) => `${targetUrl}?category_id=${id}` as string;
+const getTargetUrl = (id: number) => `${process.env.APIFY_TARGET_URL}?category_id=${id}` as string;
 
 const proxyConfiguration = await Actor.createProxyConfiguration();
 
@@ -28,7 +25,8 @@ const crawler = new PlaywrightCrawler({
     },
 });
 
-await crawler.run([getTargetUrl(1)]);
-await crawler.run([getTargetUrl(2)]);
+for (let i = 1; i <= 12; i++) {
+    await crawler.run([getTargetUrl(i)]);
+}
 
 await Actor.exit();
